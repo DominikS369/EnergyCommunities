@@ -8,7 +8,7 @@
 		<version>3.5.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>at.fhtw.disys</groupId>
+	<groupId>restapi</groupId>
 	<artifactId>rest-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>rest-api</name>
