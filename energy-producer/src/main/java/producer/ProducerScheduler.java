@@ -3,6 +3,7 @@ package producer;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import shared.EnergyMessage;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
