@@ -12,8 +12,8 @@ import java.util.Random;
 @Component
 public class ProducerScheduler {
 
-    // Max kWh pro Minute einer kleinen Solaranlage (~5 kWp)
-    private static final double MAX_KWH_PER_MINUTE = 0.083;
+    // Max kWh pro Nachricht (Sendetakt ~5 s); Basis: kleine Solaranlage (~5 kWp)
+    private static final double MAX_KWH_PER_MESSAGE = 0.083;
 
     private final RabbitTemplate rabbitTemplate;
     private final WeatherService weatherService;
@@ -33,7 +33,7 @@ public class ProducerScheduler {
 
         // ±15 % Zufallsanteil
         double noise = 1.0 + (random.nextDouble() * 0.3 - 0.15);
-        double kwh = Math.round(MAX_KWH_PER_MINUTE * radiationFactor * noise * 1000.0) / 1000.0;
+        double kwh = Math.round(MAX_KWH_PER_MESSAGE * radiationFactor * noise * 1000.0) / 1000.0;
         kwh = Math.max(kwh, 0.0001);
 
         EnergyMessage msg = new EnergyMessage(

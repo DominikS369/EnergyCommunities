@@ -12,8 +12,8 @@ import java.util.Random;
 @Component
 public class UserScheduler {
 
-    // Typischer Haushalt: ~3.5 kWh/Tag → ~0.0024 kWh/Minute
-    private static final double BASE_KWH_PER_MINUTE = 0.0024;
+    // kWh pro Nachricht (Sendetakt ~7 s); Basis: typischer Haushalt ~3.5 kWh/Tag
+    private static final double BASE_KWH_PER_MESSAGE = 0.0024;
 
     private final RabbitTemplate rabbitTemplate;
     private final Random random = new Random();
@@ -26,7 +26,7 @@ public class UserScheduler {
     public void sendUsageMessage() {
         // ±30% Zufallsanteil simuliert Tageszeit-Schwankungen
         double noise = 1.0 + (random.nextDouble() * 0.6 - 0.3);
-        double kwh = Math.round(BASE_KWH_PER_MINUTE * noise * 1000.0) / 1000.0;
+        double kwh = Math.round(BASE_KWH_PER_MESSAGE * noise * 1000.0) / 1000.0;
         kwh = Math.max(kwh, 0.0001);
 
         EnergyMessage msg = new EnergyMessage(
